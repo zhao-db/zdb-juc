@@ -34,7 +34,9 @@ public class ChatServer {
             ServerBootstrap bootstrap = new ServerBootstrap()
                     .group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
+                    //等待队列大小
                     .option(ChannelOption.SO_BACKLOG, 1024)
+                    //超过两小时无交互 才会其用keepalive策略 会向客户端发送一条心跳
                     .childOption(ChannelOption.SO_KEEPALIVE, true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
